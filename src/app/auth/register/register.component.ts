@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -9,17 +10,18 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(public AuthService:AuthService,private router:Router) { }
+  constructor(public AuthService:AuthService,private router:Router,private alertService:AlertService) { }
 
   ngOnInit(): void {
   }
 
   crearUsuario(data){
+    this.alertService.cargando('Creando usuario...');
     this.AuthService.crearUsuario(data).then(resp=>{
-      console.log(resp); 
-      this.router.navigate(['/dashboard'])   
+      this.alertService.correcto("Se creo el usuario correctamente");
+      this.router.navigate(['/login']);
     }).catch(err=>{
-      console.error(err);
+      this.alertService.error("Se produjo un error al crear el usuario, por favor inténtelo devuelta más tarde");
     })    
   }
 
