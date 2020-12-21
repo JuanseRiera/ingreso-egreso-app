@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/types/types';
+import { AppState } from 'src/app/types/types.models';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 export class RegisterComponent implements OnInit,OnDestroy{
 
   cargando:Boolean=false;
-  subscription:Subscription;
+  subscription:Subscription=new Subscription();
 
   constructor(public AuthService:AuthService,private router:Router,private alertService:AlertService,private store:Store<AppState>) { }
 

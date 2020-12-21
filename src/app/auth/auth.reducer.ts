@@ -1,5 +1,5 @@
 import * as fromAuth from './auth.actions';
-import { AuthState } from '../types/types';
+import { AuthState } from '../types/types.models';
 
 export function authReducer(state:AuthState,action:fromAuth.actions):AuthState{
 

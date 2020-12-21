@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { User } from '../types/types';
+import { User } from '../types/types.models';
 
 export const SET_USER = '[AUTH] Set user';
 

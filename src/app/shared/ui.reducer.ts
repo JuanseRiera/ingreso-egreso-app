@@ -1,4 +1,4 @@
-import { State } from '../types/types';
+import { State } from '../types/types.models';
 import * as fromUI from "./ui.actions";
 
 const initState: State = {
