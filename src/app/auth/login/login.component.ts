@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { AlertService } from '../../services/alert.service';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/types/types';
+import { AppState } from 'src/app/types/types.models';
 import { Subscription } from 'rxjs';
 
 @Component({

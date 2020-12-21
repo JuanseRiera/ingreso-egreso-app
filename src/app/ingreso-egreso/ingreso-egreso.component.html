@@ -3,47 +3,42 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Agregar Ingreso / Egreso</h4>
-                <p class="card-description">
-                    Especifique el monto y el tipo
-                </p>
+                <p class="card-description">Especifique el monto y el tipo</p>
 
-                <form>
-
+                <form [formGroup]="form" (ngSubmit)="guardar()">
                     <div class="form-group">
                         <label>Descripción</label>
-                        <input type="text" class="form-control" placeholder="Descripción" name="descripcion">
+                        <input type="text" class="form-control" placeholder="Descripción" name="descripcion" formControlName="descripcion" autocomplete="off" />
                     </div>
 
                     <div class="form-group">
                         <label>Monto</label>
-                        <input type="number" class="form-control" placeholder="Monto" name="monto">
-                        <p>
-                            Debe de ser un monto positivo
-                        </p>
+                        <input type="number" class="form-control" placeholder="Monto" name="monto" formControlName="monto" />
+                        <p>Debe de ser un monto positivo</p>
                     </div>
 
                     <div class="form-group">
                         <label>Tipo</label>
-                        <br>
-                        <button type="button" class="btn btn-primary btn-block">Ingreso</button>
-                        <!-- <button type="button" class="btn btn-warning btn-block">Egreso</button> -->
+                        <br />
+                        <div class="form-check" *ngFor="let radio of radios">
+                            <input class="form-check-input" type="radio" value="{{radio}}" id="{{radio}}" formControlName="tipo" />
+                            <label class="form-check-label" for="{{radio}}">
+                            {{ radio }}
+                            </label>
+                        </div>
                     </div>
 
-                    <hr>
-                    <button type="button" class="btn btn-success mr-2">
-                <i class="fa fa-save"></i>
-                Agregar
-              </button>
+                    <hr />
+                    <button *ngIf="!cargando" type="submit" class="btn btn-success mr-2" [disabled]="form.invalid">
+                        <i class="fa fa-save"></i>
+                        Agregar
+                    </button>
 
-                    <!-- 
-                <button disabled class="btn btn-success mr-2">
-                  <i class="fa fa-spin fa-sync"></i>
-                  Espere por favor...
-                </button> 
-              -->
+                    <button *ngIf="cargando" type="submit" class="btn btn-success mr-2" [disabled]="true">
+                        <i class="fas fa-spin fa-sync"></i>Espere...
+                    </button>
 
                     <button type="reset" class="btn btn-light">Cancelar</button>
-
                 </form>
             </div>
         </div>

@@ -3,14 +3,14 @@ import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from "@angular/router";
 import { map } from "rxjs/operators";
-import { AppState, User } from '../types/types';
+import { AppState, User } from '../types/types.models';
 import { Store } from "@ngrx/store";
 import {
   ActivarLoadingAction,
   DesactivarLoadingAction,
 } from "../shared/ui.actions";
 import { Subscription } from "rxjs";
-import { SetUser } from './auth.actions';
+import { SetUser } from '../auth/auth.actions';
 type Usuario = {
   email: string;
   nombre?: string;
@@ -23,6 +23,7 @@ type Usuario = {
 export class AuthService {
 
   private userSubscription:Subscription=new Subscription();
+  private userActual:User;
 
   constructor(
     private firestore: AngularFirestore,
@@ -37,9 +38,11 @@ export class AuthService {
         this.firestore.doc(`usuarios/${fbUser.uid}`).valueChanges().subscribe((resp:any) => {
           let newUser=new User(resp);
           this.store.dispatch(new SetUser(newUser));
+          this.userActual=newUser;
         });
       }else{
         this.userSubscription.unsubscribe();
+        this.userActual=null;
       }
     });
   }
@@ -102,5 +105,9 @@ export class AuthService {
         return fbUser != null;
       })
     );
+  }
+
+  getUser(){
+    return {...this.userActual};
   }
 }
