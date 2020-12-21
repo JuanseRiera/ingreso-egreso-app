@@ -11,6 +11,8 @@ import {
 } from "../shared/ui.actions";
 import { Subscription } from "rxjs";
 import { SetUser } from '../auth/auth.actions';
+import * as fromAuth from '../auth/auth.actions';
+
 type Usuario = {
   email: string;
   nombre?: string;
@@ -33,9 +35,9 @@ export class AuthService {
   ) {}
 
   initAuthListener() {
-    this.userSubscription=this.afAuth.authState.subscribe((fbUser) => {
+    this.afAuth.authState.subscribe((fbUser) => {
       if (fbUser) {
-        this.firestore.doc(`usuarios/${fbUser.uid}`).valueChanges().subscribe((resp:any) => {
+        this.userSubscription=this.firestore.doc(`usuarios/${fbUser.uid}`).valueChanges().subscribe((resp:any) => {
           let newUser=new User(resp);
           this.store.dispatch(new SetUser(newUser));
           this.userActual=newUser;
@@ -93,6 +95,7 @@ export class AuthService {
 
   logout() {
     this.afAuth.signOut();
+    this.store.dispatch(new fromAuth.UnsetUser());
     this.router.navigate(["/login"]);
   }
 

@@ -5,6 +5,7 @@ import { IngresoEgresoService } from '../services/ingreso-egreso.service';
 import { AlertService } from '../services/alert.service';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import * as fromUI from "../shared/ui.actions";
 
 @Component({
   selector: "app-ingreso-egreso",
@@ -38,12 +39,15 @@ export class IngresoEgresoComponent implements OnInit {
   }
 
   guardar(){
+    this.store.dispatch(new fromUI.ActivarLoadingAction());
     let ingresoEgreso = new IngresoEgreso({...this.form.value});
     this.ingresoEgresoService.crearIngresoEgreso(ingresoEgreso).then(()=>{
+      this.store.dispatch(new fromUI.DesactivarLoadingAction());
       let tipo=(ingresoEgreso.tipo).toLowerCase();
       this.AlertService.correcto(`Se registro el ${tipo} correctamente`);
     })
     .catch(()=>{
+      this.store.dispatch(new fromUI.DesactivarLoadingAction());
       this.AlertService.error("Se produjo un error en la operación, por favor vuelva a intentarlo más tarde");
     })
   }

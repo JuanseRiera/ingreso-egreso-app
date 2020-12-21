@@ -18,6 +18,8 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './app.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { OrdenarIngresoEgresoPipe } from './ingreso-egreso/ordenar-ingreso-egreso.pipe';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -30,10 +32,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     DetalleComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    OrdenarIngresoEgresoPipe
   ],
   imports: [
     BrowserModule,
+    ChartsModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,

@@ -39,6 +39,10 @@ export class DataIngresoEgresoObj {
 
 export type tipoIngresoEgreso = "Ingreso" | "Egreso";
 
+export class dataIngresoEgreso{
+  items: Array<IngresoEgreso>;
+}
+
 export class State {
   public isLoading: boolean;
 }
@@ -46,6 +50,7 @@ export class State {
 export class AppState {
   public ui: State;
   public auth: AuthState;
+  public ingresoEgreso: dataIngresoEgreso;
 }
 
 export class AuthState {

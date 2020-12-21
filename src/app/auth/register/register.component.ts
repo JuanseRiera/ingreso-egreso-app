@@ -1,37 +1,46 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
-import { AlertService } from 'src/app/services/alert.service';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/types/types.models';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AuthService } from "../../services/auth.service";
+import { Router } from "@angular/router";
+import { AlertService } from "src/app/services/alert.service";
+import { Store } from "@ngrx/store";
+import { AppState } from "src/app/types/types.models";
+import { Subscription } from "rxjs";
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styles: []
+  selector: "app-register",
+  templateUrl: "./register.component.html",
+  styles: [],
 })
-export class RegisterComponent implements OnInit,OnDestroy{
+export class RegisterComponent implements OnInit, OnDestroy {
+  cargando: Boolean = false;
+  subscription: Subscription = new Subscription();
 
-  cargando:Boolean=false;
-  subscription:Subscription=new Subscription();
-
-  constructor(public AuthService:AuthService,private router:Router,private alertService:AlertService,private store:Store<AppState>) { }
+  constructor(
+    public AuthService: AuthService,
+    private router: Router,
+    private alertService: AlertService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
-    this.subscription=this.store.select('ui').subscribe((resp)=>this.cargando=resp.isLoading);
+    this.subscription = this.store
+      .select("ui")
+      .subscribe((resp) => (this.cargando = resp.isLoading));
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  crearUsuario(data){
-    this.AuthService.crearUsuario(data).then(resp=>{
-      this.router.navigate(['/login']);
-    }).catch(err=>{
-      this.alertService.error("Se produjo un error al crear el usuario, por favor inténtelo devuelta más tarde");
-    })    
+  crearUsuario(data) {
+    this.AuthService.crearUsuario(data)
+      .then((resp) => {
+        this.router.navigate(["/login"]);
+      })
+      .catch((err) => {
+        this.alertService.error(
+          "Se produjo un error al crear el usuario, por favor inténtelo devuelta más tarde"
+        );
+      });
   }
-
 }
