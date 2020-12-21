@@ -12,7 +12,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { AppRoutingModule } from './app.routing';
-import { RouterModule } from '@angular/router';
+
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
@@ -40,7 +40,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
-      maxAge:25,
+      maxAge: 25,
       logOnly: environment.production
     })
   ],
