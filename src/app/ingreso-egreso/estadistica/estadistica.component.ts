@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState, IngresoEgreso } from 'src/app/types/types.models';
-import { tipoIngresoEgreso } from '../../types/types.models';
+import { tipoIngresoEgreso, AppStateIngresoEgreso } from '../../types/types.models';
 
 @Component({
   selector: 'app-estadistica',
@@ -20,7 +20,7 @@ export class EstadisticaComponent implements OnInit {
   totalIngresos:number=0;
   totalEgresos:number=0;
 
-  constructor(private store:Store<AppState>) { }
+  constructor(private store:Store<AppStateIngresoEgreso>) { }
 
   ngOnInit(): void {
     this.store.select('ingresoEgreso').subscribe(resp=>{

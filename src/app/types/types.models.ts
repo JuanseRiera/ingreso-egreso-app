@@ -50,7 +50,11 @@ export class State {
 export class AppState {
   public ui: State;
   public auth: AuthState;
-  public ingresoEgreso: dataIngresoEgreso;
+ // public ingresoEgreso: dataIngresoEgreso;
+}
+
+export interface AppStateIngresoEgreso extends AppState{
+  ingresoEgreso: dataIngresoEgreso;
 }
 
 export class AuthState {

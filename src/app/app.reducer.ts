@@ -7,5 +7,5 @@ import { AppState } from './types/types.models';
 export const appReducers: ActionReducerMap<AppState> = {
     ui: fromUI.loadingReducer,
     auth: fromAuth.authReducer,
-    ingresoEgreso: fromIngresoEgreso.ingresoEgresoReducer
+    //ingresoEgreso: fromIngresoEgreso.ingresoEgresoReducer
 }

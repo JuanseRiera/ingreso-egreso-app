@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState, IngresoEgreso } from 'src/app/types/types.models';
+import { IngresoEgreso } from 'src/app/types/types.models';
 import { Subscription } from 'rxjs';
 import { IngresoEgresoService } from '../../services/ingreso-egreso.service';
 import { AlertService } from '../../services/alert.service';
 import * as fromUI from '../../shared/ui.actions';
+import { AppStateIngresoEgreso } from '../../types/types.models';
 
 @Component({
   selector: 'app-detalle',
@@ -17,7 +18,7 @@ export class DetalleComponent implements OnInit,OnDestroy {
   ingresosEgresos:Array<IngresoEgreso>;
   cargando:boolean=false;
 
-  constructor(private store:Store<AppState>,private IngresoEgresoService:IngresoEgresoService,private AlertService:AlertService) { }
+  constructor(private store:Store<AppStateIngresoEgreso>,private IngresoEgresoService:IngresoEgresoService,private AlertService:AlertService) { }
 
   ngOnInit(): void {
     this.subscription = this.store.subscribe(store=>{
